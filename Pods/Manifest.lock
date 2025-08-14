@@ -1,0 +1,95 @@
+PODS:
+  - Alamofire (5.9.1)
+  - FSPagerView (0.8.3)
+  - HandyJSON (5.0.0-beta.1)
+  - IQKeyboardManagerSwift (6.5.11)
+  - JXPagingView/Paging (2.1.2)
+  - JXSegmentedView (1.3.0)
+  - Kingfisher (7.11.0)
+  - SnapKit (5.7.1)
+  - SQLite.swift (0.15.1):
+    - SQLite.swift/standard (= 0.15.1)
+  - SQLite.swift/standard (0.15.1)
+  - SwiftLint (0.51.0)
+  - SwiftPullToRefresh (3.1.1)
+  - SwiftyJSON (5.0.2)
+  - SwiftyRSA (1.5.0):
+    - SwiftyRSA/ObjC (= 1.5.0)
+  - SwiftyRSA/ObjC (1.5.0)
+  - TZImagePickerController (3.8.3):
+    - TZImagePickerController/Basic (= 3.8.3)
+    - TZImagePickerController/Location (= 3.8.3)
+  - TZImagePickerController/Basic (3.8.3)
+  - TZImagePickerController/Location (3.8.3)
+  - ZLPhotoBrowser (4.5.1):
+    - ZLPhotoBrowser/Core (= 4.5.1)
+  - ZLPhotoBrowser/Core (4.5.1)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.9.1)
+  - FSPagerView
+  - HandyJSON (from `https://github.com/alibaba/HandyJSON.git`, branch `dev_for_swift5.0`)
+  - IQKeyboardManagerSwift
+  - JXPagingView/Paging
+  - JXSegmentedView
+  - Kingfisher (~> 7.11.0)
+  - SnapKit (~> 5.7.1)
+  - SQLite.swift (~> 0.15.1)
+  - SwiftLint
+  - SwiftPullToRefresh
+  - SwiftyJSON (~> 5.0.2)
+  - SwiftyRSA
+  - TZImagePickerController (from `https://github.com/zlmac/TZImagePickerController.git`)
+  - ZLPhotoBrowser (~> 4.5.1)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - FSPagerView
+    - IQKeyboardManagerSwift
+    - JXPagingView
+    - JXSegmentedView
+    - Kingfisher
+    - SnapKit
+    - SQLite.swift
+    - SwiftLint
+    - SwiftPullToRefresh
+    - SwiftyJSON
+    - SwiftyRSA
+    - ZLPhotoBrowser
+
+EXTERNAL SOURCES:
+  HandyJSON:
+    :branch: dev_for_swift5.0
+    :git: https://github.com/alibaba/HandyJSON.git
+  TZImagePickerController:
+    :git: https://github.com/zlmac/TZImagePickerController.git
+
+CHECKOUT OPTIONS:
+  HandyJSON:
+    :commit: a2ba4e537711ae1fcd9183679c4db878eb171a78
+    :git: https://github.com/alibaba/HandyJSON.git
+  TZImagePickerController:
+    :commit: 99e71625d30e78171d749aa0a0141908ae0e1258
+    :git: https://github.com/zlmac/TZImagePickerController.git
+
+SPEC CHECKSUMS:
+  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
+  HandyJSON: 582477127ab3ab65bd2e471815f1a7b846856978
+  IQKeyboardManagerSwift: c7955c0bdbf7b2eb29bb7daaa44e3d90f55a9a85
+  JXPagingView: 90924b364a2ff7e94db534fad1fa50925ff69ee4
+  JXSegmentedView: fec0d335355b6e019c494fe2e030bde8a36d2df6
+  Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
+  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
+  SQLite.swift: 555583e9e756c0cf4e5883a1e46e9be438af3b0d
+  SwiftLint: 1b7561918a19e23bfed960e40759086e70f4dba5
+  SwiftPullToRefresh: f61d67439c5b8d66420fe57193cab8c279398e7a
+  SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
+  SwiftyRSA: 6e528fb1b1a87d5111c48081083b141d6d65f1cf
+  TZImagePickerController: e9909edbadf7381140efc5b5c9f5bdbfd630f7d4
+  ZLPhotoBrowser: 4d859a9d6462ba055d817b2235278a7b74e69eff
+
+PODFILE CHECKSUM: 71c123f3e1791c0efa9719c4cb2c05e85de7617a
+
+COCOAPODS: 1.15.2

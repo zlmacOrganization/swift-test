@@ -1,0 +1,18 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "hUW-f3-5bt.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Swift Test\"; ObjectID = \"hUW-f3-5bt\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Swift Test"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -1,0 +1,10 @@
+{
+    "aps" : {
+        "alert" : {
+            "title" : "sarunw.com",
+            "body" : "A weekly blog about iOS development"
+        },
+        "badge" : 1
+    },
+    "Simulator Target Bundle": "com.jingqi.zlTest2"
+}
