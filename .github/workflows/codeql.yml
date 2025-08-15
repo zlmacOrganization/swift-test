@@ -48,7 +48,7 @@ jobs:
         - language: ruby
           build-mode: none
         - language: swift
-          build-mode: autobuild
+          build-mode: manual
         # CodeQL supports the following values keywords for 'language': 'actions', 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'rust', 'swift'
         # Use `c-cpp` to analyze code written in C, C++ or both
         # Use 'java-kotlin' to analyze code written in Java, Kotlin or both
@@ -86,7 +86,26 @@ jobs:
     # to build your code.
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
-    - if: matrix.build-mode == 'manual'
+    - if: matrix.build-mode == 'manual' && matrix.language == 'swift'
+      shell: bash
+      run: |
+        # Install CocoaPods if not already available
+        sudo gem install cocoapods
+        
+        # Install dependencies
+        pod install
+        
+        # Build the project using the main scheme (not Pods-SwiftTest)
+        xcodebuild build \
+          -workspace SwiftTest.xcworkspace \
+          -scheme SwiftTest \
+          -configuration Debug \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
+          CODE_SIGNING_REQUIRED=NO \
+          CODE_SIGNING_ALLOWED=NO \
+          ONLY_ACTIVE_ARCH=NO
+
+    - if: matrix.build-mode == 'manual' && matrix.language != 'swift'
       shell: bash
       run: |
         echo 'If you are using a "manual" build mode for one or more of the' \
