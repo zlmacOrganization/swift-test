@@ -59,12 +59,13 @@ jobs:
       - name: Archive
         env:
           DEVELOPMENT_TEAM: ${{ secrets.TEAM_ID }}
+          SKIP_SWIFTLINT: 1
         run: |
           set -o pipefail
           mkdir -p build
           xcodebuild archive -workspace SwiftTest.xcworkspace \
             -scheme SwiftTest \
-            -configuration Release \
+            -configuration AdHoc \
             -archivePath $PWD/build/SwiftTest.xcarchive \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \

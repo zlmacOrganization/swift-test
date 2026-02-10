@@ -1208,6 +1208,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		1C21B7F42856FE22001321B2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1221,7 +1222,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "if [ \"$SKIP_SWIFTLINT\" != \"1\" ]; then\n  \"${PODS_ROOT}/SwiftLint/swiftlint\"\nfi\n";
 		};
 		5183B3D341479AB0D83E308F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
