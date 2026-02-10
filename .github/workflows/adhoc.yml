@@ -66,11 +66,13 @@ jobs:
           xcodebuild archive -workspace SwiftTest.xcworkspace \
             -scheme SwiftTest \
             -configuration AdHoc \
+            -sdk iphoneos \
             -archivePath $PWD/build/SwiftTest.xcarchive \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \
             PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
             -allowProvisioningUpdates | xcpretty
+            -destination "generic/platform=iOS" \
 
       - name: Create exportOptions.plist
         run: |

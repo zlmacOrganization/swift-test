@@ -1215,10 +1215,12 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"${SRCROOT}/**/*.swift",
 			);
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${DERIVED_FILE_DIR}/swiftlint",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
