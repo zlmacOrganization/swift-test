@@ -71,8 +71,8 @@ jobs:
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \
             PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
-            -allowProvisioningUpdates | xcpretty
             -destination "generic/platform=iOS" \
+            -allowProvisioningUpdates | xcpretty
 
       - name: Create exportOptions.plist
         run: |
