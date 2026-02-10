@@ -28,42 +28,42 @@ jobs:
           echo "Xcode version:"
           xcodebuild -version
 
-      - name: Install dependencies
-        run: |
-          set -e
-          gem install bundler --no-document || true
-          bundle config set path vendor/bundle || true
-          if [ -f Gemfile ]; then bundle install --jobs 4 --retry 3; else gem install fastlane --no-document; fi
-          gem install cocoapods --no-document || true
-          gem install xcpretty --no-document || true
+      # - name: Install dependencies
+      #   run: |
+      #     set -e
+      #     gem install bundler --no-document || true
+      #     bundle config set path vendor/bundle || true
+      #     if [ -f Gemfile ]; then bundle install --jobs 4 --retry 3; else gem install fastlane --no-document; fi
+      #     gem install cocoapods --no-document || true
+      #     gem install xcpretty --no-document || true
 
-      - name: Import signing certificate
-        env:
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-        run: |
-          echo "Importing signing certificate"
-          echo "${{ secrets.IOS_SIGNING_P12 }}" | base64 --decode > ios_cert.p12
-          security create-keychain -p "$KEYCHAIN_PASSWORD" ios-build.keychain
-          security list-keychains -s ~/Library/Keychains/ios-build.keychain
-          security default-keychain -s ~/Library/Keychains/ios-build.keychain
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/ios-build.keychain
-          security import ios_cert.p12 -k ~/Library/Keychains/ios-build.keychain -P "${{ secrets.IOS_SIGNING_P12_PASSWORD }}" -T /usr/bin/codesign || true
-          security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" ~/Library/Keychains/ios-build.keychain || true
+      # - name: Import signing certificate
+      #   env:
+      #     KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+      #   run: |
+      #     echo "Importing signing certificate"
+      #     echo "${{ secrets.IOS_SIGNING_P12 }}" | base64 --decode > ios_cert.p12
+      #     security create-keychain -p "$KEYCHAIN_PASSWORD" ios-build.keychain
+      #     security list-keychains -s ~/Library/Keychains/ios-build.keychain
+      #     security default-keychain -s ~/Library/Keychains/ios-build.keychain
+      #     security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/ios-build.keychain
+      #     security import ios_cert.p12 -k ~/Library/Keychains/ios-build.keychain -P "${{ secrets.IOS_SIGNING_P12_PASSWORD }}" -T /usr/bin/codesign || true
+      #     security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" ~/Library/Keychains/ios-build.keychain || true
 
-      - name: Install provisioning profile
-        run: |
-          echo "${{ secrets.PROVISIONING_PROFILE }}" | base64 --decode > profile.mobileprovision
-          security cms -D -i profile.mobileprovision > profile.plist
-          PROFILE_UUID=$( /usr/libexec/PlistBuddy -c "Print :UUID" profile.plist )
-          PROFILE_NAME=$( /usr/libexec/PlistBuddy -c "Print :Name" profile.plist )
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/${PROFILE_UUID}.mobileprovision
-          echo "PROFILE_NAME=$PROFILE_NAME" >> $GITHUB_ENV
+      # - name: Install provisioning profile
+      #   run: |
+      #     echo "${{ secrets.PROVISIONING_PROFILE }}" | base64 --decode > profile.mobileprovision
+      #     security cms -D -i profile.mobileprovision > profile.plist
+      #     PROFILE_UUID=$( /usr/libexec/PlistBuddy -c "Print :UUID" profile.plist )
+      #     PROFILE_NAME=$( /usr/libexec/PlistBuddy -c "Print :Name" profile.plist )
+      #     mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+      #     cp profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/${PROFILE_UUID}.mobileprovision
+      #     echo "PROFILE_NAME=$PROFILE_NAME" >> $GITHUB_ENV
 
       - name: Clean & Archive
         # working-directory: SwiftTest
-        env:
-          # DEVELOPMENT_TEAM: ${{ secrets.TEAM_ID }}
+        # env:
+        #   DEVELOPMENT_TEAM: ${{ secrets.TEAM_ID }}
         run: |
           xcodebuild archive -workspace /Users/liangzhang/swift-test/SwiftTest.xcworkspace \
             -scheme SwiftTest \
@@ -89,12 +89,12 @@ jobs:
       #     name: pms-ipa
       #     path: SwiftTest/build/output/*.ipa
 
-      - name: Cleanup keychain
-        if: always()
-        env:
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-        run: |
-          security delete-keychain ios-build.keychain || true
+      # - name: Cleanup keychain
+      #   if: always()
+      #   env:
+      #     KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+      #   run: |
+      #     security delete-keychain ios-build.keychain || true
 
 # Required repository secrets:
 # - IOS_SIGNING_P12: base64-encoded .p12 certificate
