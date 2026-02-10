@@ -77,7 +77,7 @@ jobs:
         run: |
           xcodebuild -exportArchive \
             -archivePath $/Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
-            -exportOptionsPlist $PWD/exportOptions.plist \
+            -exportOptionsPlist $/Users/liangzhang/Desktop/pms_adhoc/adhoc_ExportOptions.plist \
             -exportPath $/Users/liangzhang/Desktop/pms_adhoc | xcpretty || true
           ls -la /Users/liangzhang/Desktop/pms_adhoc
 
