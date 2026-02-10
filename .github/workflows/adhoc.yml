@@ -61,11 +61,11 @@ jobs:
           echo "PROFILE_NAME=$PROFILE_NAME" >> $GITHUB_ENV
 
       - name: Clean & Archive
-        working-directory: SwiftTest
+        # working-directory: SwiftTest
         env:
-          DEVELOPMENT_TEAM: ${{ secrets.TEAM_ID }}
+          # DEVELOPMENT_TEAM: ${{ secrets.TEAM_ID }}
         run: |
-          xcodebuild -workspace /Users/liangzhang/swift-test/SwiftTest.xcworkspace \
+          xcodebuild archive -workspace /Users/liangzhang/swift-test/SwiftTest.xcworkspace \
             -scheme SwiftTest \
             -configuration AdHoc \
             -archivePath /Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
@@ -76,7 +76,7 @@ jobs:
             -destination "generic/platform=iOS" \
 
       - name: Export IPA
-        working-directory: SwiftTest
+        # working-directory: SwiftTest
         run: |
           xcodebuild -exportArchive \
             -archivePath /Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
