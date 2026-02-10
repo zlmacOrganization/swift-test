@@ -63,22 +63,20 @@ jobs:
           mkdir -p build
           xcodebuild -workspace SwiftTest.xcworkspace \
             -scheme SwiftTest \
-            -configuration Release \
-            -archivePath $PWD/build/SwiftTest.xcarchive \
+            -configuration AdHoc \
+            -archivePath /Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \
             PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
-            -allowProvisioningUpdates clean archive | xcpretty || true
-
-
+            -destination "generic/platform=iOS" \
 
       - name: Export IPA
         working-directory: SwiftTest
         run: |
           xcodebuild -exportArchive \
-            -archivePath $/Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
-            -exportOptionsPlist $/Users/liangzhang/Desktop/pms_adhoc/adhoc_ExportOptions.plist \
-            -exportPath $/Users/liangzhang/Desktop/pms_adhoc | xcpretty || true
+            -archivePath /Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
+            -exportOptionsPlist /Users/liangzhang/Desktop/pms_adhoc/adhoc_ExportOptions.plist \
+            -exportPath /Users/liangzhang/Desktop/pms_adhoc/SwiftTest.ipa | xcpretty || true
           ls -la /Users/liangzhang/Desktop/pms_adhoc
 
       # - name: Upload IPA artifact
