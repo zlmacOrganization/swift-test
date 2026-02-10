@@ -65,7 +65,6 @@ jobs:
             -scheme SwiftTest \
             -configuration Release \
             -archivePath $PWD/build/SwiftTest.xcarchive \
-            CLEAN_ARCHIVE=YES \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \
             PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
@@ -76,18 +75,17 @@ jobs:
       - name: Export IPA
         working-directory: SwiftTest
         run: |
-          mkdir -p build/output
           xcodebuild -exportArchive \
-            -archivePath $PWD/build/SwiftTest.xcarchive \
+            -archivePath $/Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
             -exportOptionsPlist $PWD/exportOptions.plist \
-            -exportPath $PWD/build/output | xcpretty || true
-          ls -la build/output
+            -exportPath $/Users/liangzhang/Desktop/pms_adhoc | xcpretty || true
+          ls -la /Users/liangzhang/Desktop/pms_adhoc
 
-      - name: Upload IPA artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: pms-ipa
-          path: SwiftTest/build/output/*.ipa
+      # - name: Upload IPA artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: pms-ipa
+      #     path: SwiftTest/build/output/*.ipa
 
       - name: Cleanup keychain
         if: always()
