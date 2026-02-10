@@ -1,0 +1,106 @@
+name: AdHoc Build
+on:
+  push:
+    branches: [ main, master ]
+
+env:
+  APP_IDENTIFIER: ${{ secrets.APP_IDENTIFIER }}
+  EXPORT_METHOD: ad-hoc
+
+jobs:
+  build-and-export:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Import signing certificate
+        env:
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          echo "Importing signing certificate"
+          echo "${{ secrets.IOS_SIGNING_P12 }}" | base64 --decode > prd.p12
+          security create-keychain -p "$KEYCHAIN_PASSWORD" ios-build.keychain
+          security import prd.p12 -k ~/Library/Keychains/ios-build.keychain -P "${{ secrets.IOS_SIGNING_P12_PASSWORD }}" -T /usr/bin/codesign
+          security list-keychains -s ~/Library/Keychains/ios-build.keychain
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" ~/Library/Keychains/ios-build.keychain
+
+      - name: Install provisioning profile
+        run: |
+          echo "${{ secrets.PROVISIONING_PROFILE }}" | base64 --decode > profile.mobileprovision
+          security cms -D -i profile.mobileprovision > profile.plist
+          PROFILE_UUID=$( /usr/libexec/PlistBuddy -c "Print :UUID" profile.plist )
+          PROFILE_NAME=$( /usr/libexec/PlistBuddy -c "Print :Name" profile.plist )
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp profile.mobileprovision /Users/liangzhang/Documents/centaline/pms证书-new/House730PMSAdHoc.mobileprovision
+          echo "PROFILE_NAME=$PROFILE_NAME" >> $GITHUB_ENV
+
+      - name: Clean & Archive
+        working-directory: PMS
+        env:
+          DEVELOPMENT_TEAM: ${{ secrets.TEAM_ID }}
+        run: |
+          set -o pipefail
+          xcodebuild -workspace SwiftTest.xcworkspace \
+            -scheme SwiftTest \
+            -configuration Release \
+            -archivePath $/Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
+            CLEAN_ARCHIVE=YES \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \
+            PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
+            -allowProvisioningUpdates clean archive | xcpretty || true
+
+      - name: Create exportOptions.plist
+        run: |
+          cat > exportOptions.plist <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>method</key>
+  <string>$EXPORT_METHOD</string>
+  <key>provisioningProfiles</key>
+  <dict>
+    <key>$APP_IDENTIFIER</key>
+    <string>$PROFILE_NAME</string>
+  </dict>
+</dict>
+</plist>
+EOF
+
+      - name: Export IPA
+        working-directory: PMS
+        run: |
+          mkdir -p output
+          xcodebuild -exportArchive \
+            -archivePath $/Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
+            -exportOptionsPlist $/Users/liangzhang/Desktop/pms_adhoc/adhoc_ExportOptions.plist \
+            -exportPath $/Users/liangzhang/Desktop/pms_adhoc/output | xcpretty || true
+          ls -la output
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PMS-ipa
+          path: PMS/output
+
+      - name: Cleanup keychain
+        if: always()
+        env:
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          security delete-keychain ios-build.keychain || true
+
+# Required repository secrets:
+# - IOS_SIGNING_P12: base64-encoded .p12 certificate
+# - IOS_SIGNING_P12_PASSWORD: password for the .p12
+# - KEYCHAIN_PASSWORD: password to create temporary keychain
+# - PROVISIONING_PROFILE: base64-encoded .mobileprovision
+# - PROVISIONING_PROFILE_UUID: UUID for placing the profile filename (used when copying)
+# - PROVISIONING_PROFILE_NAME: provisioning profile name (used in exportOptions)
+# - APP_IDENTIFIER: app bundle id (e.g. com.example.PMS)
+# - TEAM_ID: Apple Developer Team ID
+# - EXPORT_METHOD: export method for xcodebuild export (app-store, ad-hoc, enterprise, development)

@@ -1,0 +1,22 @@
+name: SwiftLint
+
+on:
+#  push:
+#    branches: [ V202512_4341_08期 ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  swiftlint:
+    name: SwiftLint
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install SwiftLint
+        run: brew install swiftlint
+
+      - name: Run SwiftLint
+        working-directory: PMS
+        run: swiftlint lint --config .swiftlint.yml

@@ -67,7 +67,6 @@
 		1C4495FA282A3E1B004140A7 /* DiffableDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C301E0A25202E9200C02D9A /* DiffableDataController.swift */; };
 		1C4495FB282A3E1B004140A7 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65D645724B83EA3007F8813 /* LocationViewController.swift */; };
 		1C4495FC282A3E1B004140A7 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65D645324B83EA3007F8813 /* ListViewController.swift */; };
-		1C4495FD282A3E1B004140A7 /* LeakInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C93E07B27BF3507003780A7 /* LeakInspector.swift */; };
 		1C4495FE282A3E1B004140A7 /* AsyncFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC46C6726CB61630054DA82 /* AsyncFetcher.swift */; };
 		1C4495FF282A3E1B004140A7 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C51AC223FD1B02005C6FFB /* Algorithm.swift */; };
 		1C449600282A3E1B004140A7 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC33C1061FFE223700A81825 /* DBManager.swift */; };
@@ -163,7 +162,6 @@
 		1C44965C282A3E1B004140A7 /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFCD49126FAD36C006C9301 /* StoreKitManager.swift */; };
 		1C44965D282A3E1B004140A7 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5DDFD825A456EB0056BDFF /* FilterViewController.swift */; };
 		1C44965E282A3E1B004140A7 /* FCXRefreshBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4099F3210B0F7A008E6226 /* FCXRefreshBaseView.swift */; };
-		1C44965F282A3E1B004140A7 /* LeakInspectorAlertProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C93E07C27BF3507003780A7 /* LeakInspectorAlertProvider.swift */; };
 		1C449660282A3E1B004140A7 /* CommonNetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E0B4811F11F33F002E64F6 /* CommonNetRequest.swift */; };
 		1C449661282A3E1B004140A7 /* SCHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9578B422FBFDDD00EC65F8 /* SCHeaderFooterView.swift */; };
 		1C449662282A3E1B004140A7 /* MyNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4099EF210ACD46008E6226 /* MyNotes.swift */; };
@@ -216,8 +214,6 @@
 		1C8FCA3823BEDDE70080B131 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8FCA3723BEDDE70080B131 /* SearchTableViewController.swift */; };
 		1C8FCA3A23BEDE0E0080B131 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8FCA3923BEDE0E0080B131 /* ResultsViewController.swift */; };
 		1C8FCA3C23BEE2150080B131 /* BaseSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8FCA3B23BEE2150080B131 /* BaseSearchTableViewController.swift */; };
-		1C93E07D27BF3507003780A7 /* LeakInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C93E07B27BF3507003780A7 /* LeakInspector.swift */; };
-		1C93E07E27BF3507003780A7 /* LeakInspectorAlertProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C93E07C27BF3507003780A7 /* LeakInspectorAlertProvider.swift */; };
 		1C9578B722FBFDDD00EC65F8 /* TeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9578B322FBFDDD00EC65F8 /* TeamViewController.swift */; };
 		1C9578B822FBFDDD00EC65F8 /* SCHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9578B422FBFDDD00EC65F8 /* SCHeaderFooterView.swift */; };
 		1C9578B922FBFDDD00EC65F8 /* TeamBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9578B522FBFDDD00EC65F8 /* TeamBottomView.swift */; };
@@ -474,8 +470,6 @@
 		1C8FCA3723BEDDE70080B131 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		1C8FCA3923BEDE0E0080B131 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		1C8FCA3B23BEE2150080B131 /* BaseSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSearchTableViewController.swift; sourceTree = "<group>"; };
-		1C93E07B27BF3507003780A7 /* LeakInspector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeakInspector.swift; sourceTree = "<group>"; };
-		1C93E07C27BF3507003780A7 /* LeakInspectorAlertProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeakInspectorAlertProvider.swift; sourceTree = "<group>"; };
 		1C9578B322FBFDDD00EC65F8 /* TeamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamViewController.swift; sourceTree = "<group>"; };
 		1C9578B422FBFDDD00EC65F8 /* SCHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCHeaderFooterView.swift; sourceTree = "<group>"; };
 		1C9578B522FBFDDD00EC65F8 /* TeamBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamBottomView.swift; sourceTree = "<group>"; };
@@ -784,15 +778,6 @@
 				1C8FCA3923BEDE0E0080B131 /* ResultsViewController.swift */,
 			);
 			path = TableSearch;
-			sourceTree = "<group>";
-		};
-		1C93E07A27BF3507003780A7 /* LeakInspector */ = {
-			isa = PBXGroup;
-			children = (
-				1C93E07B27BF3507003780A7 /* LeakInspector.swift */,
-				1C93E07C27BF3507003780A7 /* LeakInspectorAlertProvider.swift */,
-			);
-			path = LeakInspector;
 			sourceTree = "<group>";
 		};
 		1C9578B222FBFDDD00EC65F8 /* NBATeam */ = {
@@ -1220,7 +1205,6 @@
 		EC14A6A321057B1A00EEBC8A /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				1C93E07A27BF3507003780A7 /* LeakInspector */,
 				1CB501332627E343001A32BB /* TBPasswordTextField.swift */,
 				1CA8627F21B7BE4C0082B77B /* SwiftNotice.swift */,
 				EC4099F1210B0F7A008E6226 /* SwiftFCXRefresh */,
@@ -1447,7 +1431,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		5183B3D341479AB0D83E308F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1561,7 +1545,6 @@
 				1C4495FA282A3E1B004140A7 /* DiffableDataController.swift in Sources */,
 				1C4495FB282A3E1B004140A7 /* LocationViewController.swift in Sources */,
 				1C4495FC282A3E1B004140A7 /* ListViewController.swift in Sources */,
-				1C4495FD282A3E1B004140A7 /* LeakInspector.swift in Sources */,
 				1C4495FE282A3E1B004140A7 /* AsyncFetcher.swift in Sources */,
 				1C4495FF282A3E1B004140A7 /* Algorithm.swift in Sources */,
 				1C449600282A3E1B004140A7 /* DBManager.swift in Sources */,
@@ -1658,7 +1641,6 @@
 				1C44965C282A3E1B004140A7 /* StoreKitManager.swift in Sources */,
 				1C44965D282A3E1B004140A7 /* FilterViewController.swift in Sources */,
 				1C44965E282A3E1B004140A7 /* FCXRefreshBaseView.swift in Sources */,
-				1C44965F282A3E1B004140A7 /* LeakInspectorAlertProvider.swift in Sources */,
 				1C449660282A3E1B004140A7 /* CommonNetRequest.swift in Sources */,
 				1C449661282A3E1B004140A7 /* SCHeaderFooterView.swift in Sources */,
 				1C449662282A3E1B004140A7 /* MyNotes.swift in Sources */,
@@ -1706,7 +1688,6 @@
 				1C301E0C25202E9200C02D9A /* DiffableDataController.swift in Sources */,
 				C65D646924B83EA3007F8813 /* LocationViewController.swift in Sources */,
 				C65D646524B83EA3007F8813 /* ListViewController.swift in Sources */,
-				1C93E07D27BF3507003780A7 /* LeakInspector.swift in Sources */,
 				1CC46C6926CB61640054DA82 /* AsyncFetcher.swift in Sources */,
 				C6C51AC323FD1B02005C6FFB /* Algorithm.swift in Sources */,
 				1C5985022950086E006368B2 /* CodableUtil.swift in Sources */,
@@ -1843,7 +1824,6 @@
 				1C5DDFDA25A456EB0056BDFF /* FilterViewController.swift in Sources */,
 				EC4099F8210B0F7A008E6226 /* FCXRefreshBaseView.swift in Sources */,
 				1C839B3F29B04ECF00856F9D /* ConferenceNewsController.swift in Sources */,
-				1C93E07E27BF3507003780A7 /* LeakInspectorAlertProvider.swift in Sources */,
 				C6E0B4841F11F33F002E64F6 /* CommonNetRequest.swift in Sources */,
 				1CC099AF2872807400EBBDFD /* ZLSegmentTitleView.swift in Sources */,
 				1C9578B822FBFDDD00EC65F8 /* SCHeaderFooterView.swift in Sources */,
@@ -2153,9 +2133,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = SwiftTest/SwiftTest.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2B3F85ZNPD;
+				"EXCLUDED_ARCHS[sdk=*]" = armv7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SwiftTest",
@@ -2170,9 +2152,10 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jingqi.zlTest${SAMPLE_CODE_DISAMBIGUATOR}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.house730.pms.adhoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = House730PMSAdHoc;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftTest/SwiftTest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2313,6 +2296,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 54K6LBR7FF;
+				"EXCLUDED_ARCHS[sdk=iphone*]" = armv64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SwiftTest",
@@ -2349,9 +2333,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = SwiftTest/SwiftTest.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2B3F85ZNPD;
+				"EXCLUDED_ARCHS[sdk=*]" = armv7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SwiftTest",
@@ -2366,9 +2352,10 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jingqi.zlTest${SAMPLE_CODE_DISAMBIGUATOR}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.house730.pms.adhoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = House730PMSAdHoc;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftTest/SwiftTest-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

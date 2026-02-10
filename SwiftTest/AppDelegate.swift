@@ -35,7 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         navigationBarConfig()
         registerPushNotification()
-        LeakInspector.delegate = LeakInspectorAlertProvider()
 //        IQKeyboardManager.shared.enable = true
         
         if let shortItem = launchOptions?[UIApplication.LaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
