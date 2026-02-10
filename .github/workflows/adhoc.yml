@@ -22,6 +22,12 @@ jobs:
         with:
           ruby-version: 3.1
 
+      - name: Set Xcode version
+        run: |
+          sudo xcode-select -s /Applications/Xcode26.0.1.app/Contents/Developer || true
+          echo "Xcode version:"
+          xcodebuild -version
+
       - name: Install dependencies
         run: |
           set -e
@@ -59,14 +65,12 @@ jobs:
         env:
           DEVELOPMENT_TEAM: ${{ secrets.TEAM_ID }}
         run: |
-          set -o pipefail
-          mkdir -p build
           xcodebuild -workspace /Users/liangzhang/swift-test/SwiftTest.xcworkspace \
             -scheme SwiftTest \
             -configuration AdHoc \
             -archivePath /Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
             CODE_SIGN_STYLE=Manual \
-            DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \
+            DEVELOPMENT_TEAM="2B3F85ZNPD" \
             PROVISIONING_PROFILE_APP="House730PMSAdHoc" \
             PRODUCT_BUNDLE_IDENTIFIER_APP="com.house730.pms.adhoc" \
             -destination "generic/platform=iOS" \
