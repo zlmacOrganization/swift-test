@@ -17,90 +17,104 @@ jobs:
         with:
           submodules: true
 
-      # - name: Set up Ruby
-      #   uses: ruby/setup-ruby@v1
-      #   with:
-      #     ruby-version: 3.1
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1
 
-      # - name: Set Xcode version
-      #   run: |
-      #     sudo xcode-select -s /Applications/Xcode26.0.1.app/Contents/Developer || true
-      #     echo "Xcode version:"
-      #     xcodebuild -version
+      - name: Install dependencies
+        run: |
+          set -e
+          gem install bundler --no-document || true
+          gem install cocoapods --no-document || true
+          gem install xcpretty --no-document || true
 
-      # - name: Install dependencies
-      #   run: |
-      #     set -e
-      #     gem install bundler --no-document || true
-      #     bundle config set path vendor/bundle || true
-      #     if [ -f Gemfile ]; then bundle install --jobs 4 --retry 3; else gem install fastlane --no-document; fi
-      #     gem install cocoapods --no-document || true
-      #     gem install xcpretty --no-document || true
+      - name: CocoaPods install
+        run: |
+          pod install
 
-      # - name: Import signing certificate
-      #   env:
-      #     KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-      #   run: |
-      #     echo "Importing signing certificate"
-      #     echo "${{ secrets.IOS_SIGNING_P12 }}" | base64 --decode > ios_cert.p12
-      #     security create-keychain -p "$KEYCHAIN_PASSWORD" ios-build.keychain
-      #     security list-keychains -s ~/Library/Keychains/ios-build.keychain
-      #     security default-keychain -s ~/Library/Keychains/ios-build.keychain
-      #     security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/ios-build.keychain
-      #     security import ios_cert.p12 -k ~/Library/Keychains/ios-build.keychain -P "${{ secrets.IOS_SIGNING_P12_PASSWORD }}" -T /usr/bin/codesign || true
-      #     security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" ~/Library/Keychains/ios-build.keychain || true
+      - name: Import signing certificate
+        env:
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          echo "Importing signing certificate"
+          echo "${{ secrets.IOS_SIGNING_P12 }}" | base64 --decode > ios_cert.p12
+          security create-keychain -p "$KEYCHAIN_PASSWORD" ios-build.keychain
+          security list-keychains -s ~/Library/Keychains/ios-build.keychain
+          security default-keychain -s ~/Library/Keychains/ios-build.keychain
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/ios-build.keychain
+          security import ios_cert.p12 -k ~/Library/Keychains/ios-build.keychain -P "${{ secrets.IOS_SIGNING_P12_PASSWORD }}" -T /usr/bin/codesign || true
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" ~/Library/Keychains/ios-build.keychain || true
 
-      # - name: Install provisioning profile
-      #   run: |
-      #     echo "${{ secrets.PROVISIONING_PROFILE }}" | base64 --decode > profile.mobileprovision
-      #     security cms -D -i profile.mobileprovision > profile.plist
-      #     PROFILE_UUID=$( /usr/libexec/PlistBuddy -c "Print :UUID" profile.plist )
-      #     PROFILE_NAME=$( /usr/libexec/PlistBuddy -c "Print :Name" profile.plist )
-      #     mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-      #     cp profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/${PROFILE_UUID}.mobileprovision
-      #     echo "PROFILE_NAME=$PROFILE_NAME" >> $GITHUB_ENV
+      - name: Install provisioning profile
+        run: |
+          echo "${{ secrets.PROVISIONING_PROFILE }}" | base64 --decode > profile.mobileprovision
+          security cms -D -i profile.mobileprovision > profile.plist
+          PROFILE_UUID=$( /usr/libexec/PlistBuddy -c "Print :UUID" profile.plist )
+          PROFILE_NAME=$( /usr/libexec/PlistBuddy -c "Print :Name" profile.plist )
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/${PROFILE_UUID}.mobileprovision
+          echo "PROFILE_NAME=$PROFILE_NAME" >> $GITHUB_ENV
 
       - name: Archive
-        working-directory: swift-test
-        # env:
-        #   DEVELOPMENT_TEAM: ${{ secrets.TEAM_ID }}
+        env:
+          DEVELOPMENT_TEAM: ${{ secrets.TEAM_ID }}
         run: |
+          set -o pipefail
+          mkdir -p build
           xcodebuild archive -workspace SwiftTest.xcworkspace \
             -scheme SwiftTest \
-            -configuration AdHoc \
-            -archivePath /Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
+            -configuration Release \
+            -archivePath $PWD/build/SwiftTest.xcarchive \
             CODE_SIGN_STYLE=Manual \
-            DEVELOPMENT_TEAM="2B3F85ZNPD" \
-            PROVISIONING_PROFILE_APP="House730PMSAdHoc" \
-            PRODUCT_BUNDLE_IDENTIFIER_APP="com.house730.pms.adhoc" \
-            -destination "generic/platform=iOS" \
+            DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \
+            PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
+            -allowProvisioningUpdates | xcpretty || true
+
+      - name: Create exportOptions.plist
+        run: |
+          cat > exportOptions.plist <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>${EXPORT_METHOD}</string>
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>${APP_IDENTIFIER}</key>
+              <string>${PROFILE_NAME}</string>
+            </dict>
+          </dict>
+          </plist>
+          EOF
 
       - name: Export IPA
-        # working-directory: SwiftTest
         run: |
+          set -o pipefail
+          mkdir -p build/output
           xcodebuild -exportArchive \
-            -archivePath /Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
-            -exportOptionsPlist /Users/liangzhang/Desktop/pms_adhoc/adhoc_ExportOptions.plist \
-            -exportPath /Users/liangzhang/Desktop/pms_adhoc/SwiftTest.ipa
+            -archivePath $PWD/build/SwiftTest.xcarchive \
+            -exportOptionsPlist $PWD/exportOptions.plist \
+            -exportPath $PWD/build/output | xcpretty || true
+          ls -la build/output
 
-      # - name: Upload IPA artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: pms-ipa
-      #     path: SwiftTest/build/output/*.ipa
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pms-ipa
+          path: build/output/*.ipa
 
-      # - name: Cleanup keychain
-      #   if: always()
-      #   env:
-      #     KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-      #   run: |
-      #     security delete-keychain ios-build.keychain || true
+      - name: Cleanup keychain
+        if: always()
+        env:
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          security delete-keychain ios-build.keychain || true
 
 # Required repository secrets:
 # - IOS_SIGNING_P12: base64-encoded .p12 certificate
 # - IOS_SIGNING_P12_PASSWORD: password for the .p12
 # - KEYCHAIN_PASSWORD: password to create temporary keychain
 # - PROVISIONING_PROFILE: base64-encoded .mobileprovision
-# - APP_IDENTIFIER: app bundle id (set above)
 # - TEAM_ID: Apple Developer Team ID
-# - EXPORT_METHOD: export method for xcodebuild export (app-store, ad-hoc, enterprise, development)
