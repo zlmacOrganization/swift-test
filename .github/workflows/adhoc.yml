@@ -61,13 +61,14 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p build
-          xcodebuild -workspace SwiftTest.xcworkspace \
+          xcodebuild -workspace /Users/liangzhang/swift-test/SwiftTest.xcworkspace \
             -scheme SwiftTest \
             -configuration AdHoc \
             -archivePath /Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \
-            PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
+            PROVISIONING_PROFILE_APP="House730PMSAdHoc" \
+            PRODUCT_BUNDLE_IDENTIFIER_APP="com.house730.pms.adhoc" \
             -destination "generic/platform=iOS" \
 
       - name: Export IPA
@@ -76,8 +77,7 @@ jobs:
           xcodebuild -exportArchive \
             -archivePath /Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
             -exportOptionsPlist /Users/liangzhang/Desktop/pms_adhoc/adhoc_ExportOptions.plist \
-            -exportPath /Users/liangzhang/Desktop/pms_adhoc/SwiftTest.ipa | xcpretty || true
-          ls -la /Users/liangzhang/Desktop/pms_adhoc
+            -exportPath /Users/liangzhang/Desktop/pms_adhoc/SwiftTest.ipa
 
       # - name: Upload IPA artifact
       #   uses: actions/upload-artifact@v4
