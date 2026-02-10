@@ -10,7 +10,7 @@ PODS:
   - SQLite.swift (0.15.1):
     - SQLite.swift/standard (= 0.15.1)
   - SQLite.swift/standard (0.15.1)
-  - SwiftLint (0.51.0)
+  - SwiftLint (0.47.0)
   - SwiftPullToRefresh (3.1.1)
   - SwiftyJSON (5.0.2)
   - SwiftyRSA (1.5.0):
@@ -35,7 +35,7 @@ DEPENDENCIES:
   - Kingfisher (~> 7.11.0)
   - SnapKit (~> 5.7.1)
   - SQLite.swift (~> 0.15.1)
-  - SwiftLint
+  - SwiftLint (= 0.47.0)
   - SwiftPullToRefresh
   - SwiftyJSON (~> 5.0.2)
   - SwiftyRSA
@@ -43,6 +43,8 @@ DEPENDENCIES:
   - ZLPhotoBrowser (~> 4.5.1)
 
 SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - SwiftLint
   trunk:
     - Alamofire
     - FSPagerView
@@ -52,7 +54,6 @@ SPEC REPOS:
     - Kingfisher
     - SnapKit
     - SQLite.swift
-    - SwiftLint
     - SwiftPullToRefresh
     - SwiftyJSON
     - SwiftyRSA
@@ -83,13 +84,13 @@ SPEC CHECKSUMS:
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SQLite.swift: 555583e9e756c0cf4e5883a1e46e9be438af3b0d
-  SwiftLint: 1b7561918a19e23bfed960e40759086e70f4dba5
+  SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
   SwiftPullToRefresh: f61d67439c5b8d66420fe57193cab8c279398e7a
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   SwiftyRSA: 6e528fb1b1a87d5111c48081083b141d6d65f1cf
   TZImagePickerController: e9909edbadf7381140efc5b5c9f5bdbfd630f7d4
   ZLPhotoBrowser: 4d859a9d6462ba055d817b2235278a7b74e69eff
 
-PODFILE CHECKSUM: 71c123f3e1791c0efa9719c4cb2c05e85de7617a
+PODFILE CHECKSUM: d1124aced8b2686462db9b8e73216645964399c4
 
 COCOAPODS: 1.15.2

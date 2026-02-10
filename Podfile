@@ -70,7 +70,7 @@ pod 'ZLPhotoBrowser', '~> 4.5.1'
 pod 'JXPagingView/Paging'
 pod 'JXSegmentedView'
 
-pod 'SwiftLint'
+pod 'SwiftLint', '0.47.0'
 #pod 'SwiftGen'
 
 pod 'IQKeyboardManagerSwift'
