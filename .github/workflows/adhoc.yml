@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 env:
-  APP_IDENTIFIER: ${{ secrets.APP_IDENTIFIER }}
+  APP_IDENTIFIER: com.house730.pms.adhoc
   EXPORT_METHOD: ad-hoc
 
 jobs:
@@ -36,12 +36,12 @@ jobs:
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
           echo "Importing signing certificate"
-          echo "${{ secrets.IOS_SIGNING_P12 }}" | base64 --decode > ios_cert.p12
+          echo "${{ secrets.IOS_SIGNING_P12 }}" | base64 --decode > /Users/liangzhang/Documents/centaline/pms证书-new/prd.p12
           security create-keychain -p "$KEYCHAIN_PASSWORD" ios-build.keychain
           security list-keychains -s ~/Library/Keychains/ios-build.keychain
           security default-keychain -s ~/Library/Keychains/ios-build.keychain
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/ios-build.keychain
-          security import ios_cert.p12 -k ~/Library/Keychains/ios-build.keychain -P "${{ secrets.IOS_SIGNING_P12_PASSWORD }}" -T /usr/bin/codesign || true
+          security import /Users/liangzhang/Documents/centaline/pms证书-new/prd.p12 -k ~/Library/Keychains/ios-build.keychain -P "123" -T /usr/bin/codesign || true
           security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" ~/Library/Keychains/ios-build.keychain || true
 
       - name: Install provisioning profile
@@ -71,39 +71,21 @@ jobs:
             PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
             -allowProvisioningUpdates clean archive | xcpretty || true
 
-      - name: Create exportOptions.plist
-        run: |
-          cat > exportOptions.plist <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-  <key>method</key>
-  <string>${EXPORT_METHOD}</string>
-  <key>provisioningProfiles</key>
-  <dict>
-    <key>${APP_IDENTIFIER}</key>
-    <string>${PROFILE_NAME}</string>
-  </dict>
-</dict>
-</plist>
-EOF
-
       - name: Export IPA
         working-directory: SwiftTest
         run: |
           mkdir -p build/output
           xcodebuild -exportArchive \
-            -archivePath $PWD/build/SwiftTest.xcarchive \
-            -exportOptionsPlist $PWD/exportOptions.plist \
-            -exportPath $PWD/build/output | xcpretty || true
-          ls -la build/output
+            -archivePath $/Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
+            -exportOptionsPlist $/Users/liangzhang/Desktop/pms_adhoc/adhoc_ExportOptions.plist \
+            -exportPath $/Users/liangzhang/Desktop/pms_adhoc/build/output | xcpretty || true
+          ls -la $/Users/liangzhang/Desktop/pms_adhoc/build/output
 
       - name: Upload IPA artifact
         uses: actions/upload-artifact@v4
         with:
           name: pms-ipa
-          path: SwiftTest/build/output/*.ipa
+          path: $/Users/liangzhang/Desktop/pms_adhoc/*.ipa
 
       - name: Cleanup keychain
         if: always()
@@ -117,6 +99,6 @@ EOF
 # - IOS_SIGNING_P12_PASSWORD: password for the .p12
 # - KEYCHAIN_PASSWORD: password to create temporary keychain
 # - PROVISIONING_PROFILE: base64-encoded .mobileprovision
-# - APP_IDENTIFIER: app bundle id (e.g. com.example.PMS)
+# - APP_IDENTIFIER: app bundle id (set above)
 # - TEAM_ID: Apple Developer Team ID
 # - EXPORT_METHOD: export method for xcodebuild export (app-store, ad-hoc, enterprise, development)
