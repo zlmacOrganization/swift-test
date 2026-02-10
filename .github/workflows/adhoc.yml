@@ -36,12 +36,12 @@ jobs:
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
           echo "Importing signing certificate"
-          echo "${{ secrets.IOS_SIGNING_P12 }}" | base64 --decode > /Users/liangzhang/Documents/centaline/pms证书-new/prd.p12
+          echo "${{ secrets.IOS_SIGNING_P12 }}" | base64 --decode > ios_cert.p12
           security create-keychain -p "$KEYCHAIN_PASSWORD" ios-build.keychain
           security list-keychains -s ~/Library/Keychains/ios-build.keychain
           security default-keychain -s ~/Library/Keychains/ios-build.keychain
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/ios-build.keychain
-          security import /Users/liangzhang/Documents/centaline/pms证书-new/prd.p12 -k ~/Library/Keychains/ios-build.keychain -P "123" -T /usr/bin/codesign || true
+          security import ios_cert.p12 -k ~/Library/Keychains/ios-build.keychain -P "${{ secrets.IOS_SIGNING_P12_PASSWORD }}" -T /usr/bin/codesign || true
           security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" ~/Library/Keychains/ios-build.keychain || true
 
       - name: Install provisioning profile
@@ -71,21 +71,23 @@ jobs:
             PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
             -allowProvisioningUpdates clean archive | xcpretty || true
 
+
+
       - name: Export IPA
         working-directory: SwiftTest
         run: |
           mkdir -p build/output
           xcodebuild -exportArchive \
-            -archivePath $/Users/liangzhang/Desktop/pms_adhoc/SwiftTest.xcarchive \
-            -exportOptionsPlist $/Users/liangzhang/Desktop/pms_adhoc/adhoc_ExportOptions.plist \
-            -exportPath $/Users/liangzhang/Desktop/pms_adhoc/build/output | xcpretty || true
-          ls -la $/Users/liangzhang/Desktop/pms_adhoc/build/output
+            -archivePath $PWD/build/SwiftTest.xcarchive \
+            -exportOptionsPlist $PWD/exportOptions.plist \
+            -exportPath $PWD/build/output | xcpretty || true
+          ls -la build/output
 
       - name: Upload IPA artifact
         uses: actions/upload-artifact@v4
         with:
           name: pms-ipa
-          path: $/Users/liangzhang/Desktop/pms_adhoc/*.ipa
+          path: SwiftTest/build/output/*.ipa
 
       - name: Cleanup keychain
         if: always()
