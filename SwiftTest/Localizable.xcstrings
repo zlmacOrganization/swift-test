@@ -52,7 +52,7 @@
       }
     },
     "delete" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -119,7 +119,7 @@
       }
     },
     "Share" : {
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
