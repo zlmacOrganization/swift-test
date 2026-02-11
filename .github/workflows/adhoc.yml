@@ -29,9 +29,9 @@ jobs:
           gem install cocoapods --no-document || true
           gem install xcpretty --no-document || true
 
-      - name: CocoaPods install
-        run: |
-          pod install
+      # - name: CocoaPods install
+      #   run: |
+      #     pod install
 
       - name: Import signing certificate
         env:
@@ -113,7 +113,7 @@ jobs:
       - name: Upload IPA artifact
         uses: actions/upload-artifact@v4
         with:
-          name: pms-ipa
+          name: swiftTest-ipa
           path: build/output/*.ipa
 
       - name: Upload to Pgyer
