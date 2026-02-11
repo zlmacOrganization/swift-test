@@ -116,6 +116,18 @@ jobs:
           name: pms-ipa
           path: build/output/*.ipa
 
+      - name: Upload to Pgyer
+        run: |
+          ipaPath="$PWD/build/output/SwiftTest.ipa"
+          if [ ! -f "$ipaPath" ]; then
+            echo "ERROR: IPA file not found at $ipaPath" >&2
+            exit 1
+          fi
+          echo "Uploading IPA to Pgyer..."
+          curl -F "file=@$ipaPath" \
+            -F "_api_key=60f055a1938d1ec2c1f01818cfd774a6" \
+            https://www.pgyer.com/apiv2/app/upload
+
       - name: Cleanup keychain
         if: always()
         env:
