@@ -1,7 +1,7 @@
 name: AdHoc Build
 on:
   push:
-    branches: [ main, master ]
+    branches: [ uat, sim, master ]
   workflow_dispatch:
 
 env:
@@ -117,7 +117,13 @@ jobs:
           path: build/output/*.ipa
 
       - name: Upload to Pgyer
+        env:
+         PGYER_API_KEY: ${{ secrets.PGYER_API_KEY }}
         run: |
+          if [ -z "$PGYER_API_KEY" ]; then
+            echo "PGYER_API_KEY not set; skipping Pgyer upload"
+            exit 0
+          fi
           ipaPath="$PWD/build/output/SwiftTest.ipa"
           if [ ! -f "$ipaPath" ]; then
             echo "ERROR: IPA file not found at $ipaPath" >&2
@@ -125,7 +131,7 @@ jobs:
           fi
           echo "Uploading IPA to Pgyer..."
           curl -F "file=@$ipaPath" \
-            -F "_api_key=60f055a1938d1ec2c1f01818cfd774a6" \
+            -F "_api_key=$PGYER_API_KEY" \
             https://www.pgyer.com/apiv2/app/upload
 
       - name: Cleanup keychain
